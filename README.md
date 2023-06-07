@@ -1,5 +1,3 @@
-# Plantique Store
-
 [ApparelKart](https://apparelkart.netlify.app/) - An E-Commerce website for apprels clothing.
 
 ## How to install and run locally?
