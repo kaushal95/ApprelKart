@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useState } from "react";
 import { userLogin, userSignup } from "../services/auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {

@@ -5,6 +5,7 @@ import {
   useState,
   useEffect,
 } from "react";
+import { toast } from "react-hot-toast";
 import { useAuth } from "./AuthContext";
 import {
   getCartItems,
@@ -45,48 +46,45 @@ export const CartProvider = ({ children }) => {
       if (response.status === 201) {
         const { cart } = await response.json();
         cartDispatch({ type: "ADD_TO_CART", payload: cart });
-        // toast.success(`${product.title} added to cart successfully!`);
+        toast.success(`${product.name} added to cart successfully!`);
       }
     } catch (error) {
       console.error(error);
-      //   toast.error("Not able to add to cart.");
+      toast.error("Not able to add to cart.");
     }
   };
 
-  const removeFromCart = async ({ _id: productId, title }) => {
+  const removeFromCart = async ({ _id: productId, name }) => {
     try {
       const response = await removeItemFromCart(productId, token);
 
       if (response.status === 200) {
         const { cart } = await response.json();
         cartDispatch({ type: "REMOVE_FROM_CART", payload: cart });
-        // toast.success(`${title} removed from cart successfully!`);
+        toast.success(`${name} removed from cart successfully!`);
       }
     } catch (error) {
       console.error(error);
-      //   toast.error("Unable to remove from cart.");
+      toast.error("Unable to remove from cart.");
     }
   };
 
-  const updateQuantityInCart = async (
-    { _id: productId, title },
-    actionType
-  ) => {
+  const updateQuantityInCart = async ({ _id: productId, name }, actionType) => {
     try {
       const response = await updateCartItem(token, productId, actionType);
 
       if (response.status === 200) {
         const { cart } = await response.json();
         cartDispatch({ type: "UPDATE_QUANTITY_IN_CART", payload: cart });
-        // toast.success(
-        //   actionType === "increment"
-        //     ? `Added one more ${title} to the cart sucessfully!`
-        //     : `Removed one ${title} from cart successfully!`
-        // );
+        toast.success(
+          actionType === "increment"
+            ? `Added one more ${name} to the cart sucessfully!`
+            : `Removed one ${name} from cart successfully!`
+        );
       }
     } catch (error) {
       console.error(error);
-      //   toast.error("Unable to update quantity.");
+      toast.error("Unable to update quantity.");
     }
   };
 

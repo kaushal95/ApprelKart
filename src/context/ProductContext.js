@@ -110,8 +110,6 @@ export function ProductsProvider({ children }) {
         filterByCategory,
         getProductById,
         handleProductAction,
-        // sortByPrice,
-        // filterByRating,
       }}
     >
       {children}

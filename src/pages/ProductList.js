@@ -16,8 +16,6 @@ export default function ProductList() {
     loading,
     filterByCategory,
     handleProductAction,
-    showFilters,
-    setShowFilters,
   } = useProducts();
   const { addToWishlist, removeFromWishlist, itemInWishlist } = useWishlist();
   const { addToCart, removeFromCart, updateQuantityInCart, itemInCart } =
@@ -31,6 +29,9 @@ export default function ProductList() {
   };
   const gotoCartPage = () => {
     navigate("/cart");
+  };
+  const gotoWishlistPage = () => {
+    navigate("/wishlist");
   };
   return (
     <>
@@ -60,36 +61,39 @@ export default function ProductList() {
                         <span className="price">{price}</span>
                       </div>
                       {itemInCart(_id) ? (
-                        <div className="btn cart-btn">
-                          <button onClick={gotoCartPage}> Go to Cart </button>
-                        </div>
+                        <button className="btn cart-btn" onClick={gotoCartPage}>
+                          {" "}
+                          Go to Cart{" "}
+                        </button>
                       ) : (
-                        <div className="btn cart-btn">
-                          <button
-                            onClick={() =>
-                              handleProductAction(600, addToCart, product)
-                            }
-                          >
-                            {" "}
-                            Add to Cart{" "}
-                          </button>
-                        </div>
+                        <button
+                          className="btn cart-btn"
+                          onClick={() =>
+                            handleProductAction(600, addToCart, product)
+                          }
+                        >
+                          {" "}
+                          Add to Cart{" "}
+                        </button>
                       )}
                       {itemInWishlist(_id) ? (
-                        <div className="btn wishlist-btn">
-                          <button onClick={() => {}}> Go to Wishlist </button>
-                        </div>
+                        <button
+                          className="btn wishlist-btn"
+                          onClick={gotoWishlistPage}
+                        >
+                          {" "}
+                          Go to Wishlist{" "}
+                        </button>
                       ) : (
-                        <div className="btn wishlist-btn">
-                          <button
-                            onClick={() =>
-                              handleProductAction(600, addToWishlist, product)
-                            }
-                          >
-                            {" "}
-                            Add to Wishlist{" "}
-                          </button>
-                        </div>
+                        <button
+                          className="btn wishlist-btn"
+                          onClick={() =>
+                            handleProductAction(600, addToWishlist, product)
+                          }
+                        >
+                          {" "}
+                          Add to Wishlist{" "}
+                        </button>
                       )}
                     </div>
                   );

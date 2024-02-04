@@ -42,7 +42,7 @@
 }
 
 .App {
-  font-family: sans-serif;
+  font-family: var(--standard-font);
   text-align: center;
 }
 
@@ -88,7 +88,7 @@ header
   text-shadow: 5px 0px 5px gray;
 }
 .color-contrast {
-  color: #ff5403;
+  color: var(--color-primary);
 }
 button {
   padding: 2px;
@@ -98,7 +98,7 @@ button {
   border-radius: 4px;
 }
 .nav-icon {
-  color: #ff5403;
+  color: var(--color-primary);
 }
 
 /* 
@@ -120,7 +120,7 @@ product-page
 .product-list-outline {
   width: 300px;
   margin: 0.5rem;
-  border: 4px solid #ff5403;
+  border: 4px solid var(--color-primary);
   border-radius: 15px;
   box-shadow: 5px 5px 5px #80808057;
 }
@@ -435,7 +435,7 @@ Login Page
   transform: translate(-50%, 50%);
   box-shadow: 10px 11px 5px 0px #ccc;
   padding: 30px;
-  border: 2px solid #ff5403;
+  border: 2px solid var(--color-primary);
   border-radius: 15px;
 }
 .form a {
@@ -453,11 +453,11 @@ input {
   margin-bottom: 1rem;
 }
 .login-form input {
-  border: 1px solid #ff5403;
+  border: 1px solid var(--color-primary);
   padding: 5px;
 }
 .login-form input:focus {
-  border: 3px solid #ff5403;
+  border: 3px solid var(--color-primary);
   outline: none;
 }
 .sidebar {
@@ -579,11 +579,20 @@ input {
 }
 
 .product-detail {
-  max-width: 350px;
+  /* max-width: 350px; */
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 .product-detail .header-container {
   font-family: var(--standard-header);
   line-height: 1rem;
+}
+.product-detail .product-btn-container .btn {
+  align-self: flex-start;
+  display: inline-block;
+  margin-right: 1rem;
 }
 
 .product-attribute {
@@ -597,7 +606,27 @@ input {
   height: unset;
   width: 100%;
 }
-/* } */
+
+/* *********************button*************** */
+
+.btn {
+  background-color: var(--standard-black);
+  color: var(--standard-white);
+  padding: var(--space3);
+  border-radius: var(--space1);
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--standard-black);
+  border-color: var(--color-primary);
+}
+.cart-btn,
+.wishlisht-btn {
+  display: block;
+  margin: auto;
+  margin-bottom: 1rem;
+}
 
 @media (min-width: 1020px) {
   .filterButtons {

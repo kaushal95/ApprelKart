@@ -117,23 +117,20 @@ export const updateCartItemHandler = function (schema, request) {
         }
       );
     }
-    const userCart = schema.users.findBy({ _id: userId }).cart;
+    let userCart = schema.users.findBy({ _id: userId }).cart;
     const { action } = JSON.parse(request.requestBody);
-    if (action.type === "increment") {
-      userCart.forEach((product) => {
-        if (product._id === productId) {
+    userCart = userCart.map((product) => {
+      if (product._id === productId) {
+        if (action.type === "increment") {
           product.qty += 1;
-          product.updatedAt = formatDate();
-        }
-      });
-    } else if (action.type === "decrement") {
-      userCart.forEach((product) => {
-        if (product._id === productId) {
+        } else if (action.type === "decrement") {
           product.qty -= 1;
-          product.updatedAt = formatDate();
         }
-      });
-    }
+        product.updatedAt = formatDate();
+      }
+      return product;
+    });
+
     this.db.users.update({ _id: userId }, { cart: userCart });
     return new Response(200, {}, { cart: userCart });
   } catch (error) {

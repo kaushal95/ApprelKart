@@ -1,5 +1,9 @@
-import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useWishlist } from "../context/WishListContext";
+import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+
 const obj = {
   _id: "f0079bfa-fbbc-49b5-888e-2db73ea22156",
   name: "Pullover",
@@ -13,10 +17,38 @@ const obj = {
   categoryName: "Men",
 };
 export default function Product() {
+  const { token } = useAuth();
+
   const {
+    getAllProducts,
     productState: { productDetail },
+    getProductById,
+    loading,
+    filterByCategory,
+    handleProductAction,
+    showFilters,
+    setShowFilters,
   } = useProducts();
-  console.log(productDetail);
+
+  const { _id, name, image, price, description, currency, rating } =
+    productDetail;
+  const { addToWishlist, removeFromWishlist, itemInWishlist } = useWishlist();
+  const { addToCart, removeFromCart, updateQuantityInCart, itemInCart } =
+    useCart();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleClick = async (productId) => {
+    const path = location.pathname + productId;
+    await getProductById(productId);
+    navigate(path);
+  };
+  const gotoCartPage = () => {
+    navigate("/cart");
+  };
+  const gotoWishlistPage = () => {
+    navigate("/wishlist");
+  };
+
   return (
     <main className="layout-single-product">
       <div className="root-container">
@@ -24,18 +56,54 @@ export default function Product() {
           <div className="product-content">
             <div className="product-gallery">
               <div className="gallery-img-container">
-                <img src={productDetail.image} alt="product-img" />
+                <img src={image} alt="product-img" />
               </div>
             </div>
           </div>
           <div className="product-detail">
             <div className="product-header-container">
-              <h1>{productDetail.name}</h1>
+              <h1>{name}</h1>
             </div>
             <div className="product-price-container">
-              <span>{productDetail.currency}</span>
-              <span>{productDetail.price}</span>
+              <span>{currency}</span>
+              <span>{price}</span>
             </div>
+
+            <div className="product-btn-container">
+              {itemInCart(_id) ? (
+                <button className="btn cart-btn" onClick={gotoCartPage}>
+                  {" "}
+                  Go to Cart{" "}
+                </button>
+              ) : (
+                <button
+                  className="btn cart-btn"
+                  onClick={() =>
+                    handleProductAction(600, addToCart, productDetail)
+                  }
+                >
+                  {" "}
+                  Add to Cart{" "}
+                </button>
+              )}
+              {itemInWishlist(_id) ? (
+                <button className="btn wishlist-btn" onClick={gotoWishlistPage}>
+                  {" "}
+                  Go to Wishlist{" "}
+                </button>
+              ) : (
+                <button
+                  className="btn wishlist-btn"
+                  onClick={() =>
+                    handleProductAction(600, addToWishlist, productDetail)
+                  }
+                >
+                  {" "}
+                  Add to Wishlist{" "}
+                </button>
+              )}
+            </div>
+            <div>{description}</div>
           </div>
         </div>
         <div className="product-attribute">

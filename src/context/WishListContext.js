@@ -5,7 +5,7 @@ import {
   createContext,
   useReducer,
 } from "react";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useAuth } from "./AuthContext";
 import wishlistReducer, {
   initialWishlistState,
@@ -48,11 +48,11 @@ export const WishlistProvider = ({ children }) => {
       if (response.status === 201) {
         const { wishlist } = await response.json();
         wishlistDispatch({ type: "ADD_TO_WISHLIST", payload: wishlist });
-        // toast.success(`${product.title} added to favorites!`);
+        toast.success(`${product.name} added to favorites!`);
       }
     } catch (error) {
       console.error(error);
-      //   toast.error("Not able to add to favorites.");
+      toast.error("Not able to add to favorites.");
     }
   };
 
@@ -62,11 +62,11 @@ export const WishlistProvider = ({ children }) => {
       if (response.status === 200) {
         const { wishlist } = await response.json();
         wishlistDispatch({ type: "REMOVE_FROM_WISHLIST", payload: wishlist });
-        // toast.success("No longer favorite plant!");
+        toast.success("No longer favorite plant!");
       }
     } catch (error) {
       console.error(error);
-      //   toast.error("Unable to remove from favorites.");
+      toast.error("Unable to remove from favorites.");
     }
   };
 
