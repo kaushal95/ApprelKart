@@ -14,18 +14,16 @@ export { CartContext, AuthContext, WishlistContext, ProductContext };
 makeServer();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <AuthProvider>
-        <ProductsProvider>
-          <WishlistProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </WishlistProvider>
-        </ProductsProvider>
-      </AuthProvider>
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <AuthProvider>
+      <ProductsProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </WishlistProvider>
+      </ProductsProvider>
+    </AuthProvider>
+  </Router>,
   document.getElementById("root")
 );

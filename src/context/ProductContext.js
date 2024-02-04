@@ -25,7 +25,6 @@ export function ProductsProvider({ children }) {
   );
 
   const [loading, setLoading] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
 
   const getAllProducts = async () => {
     setLoading(true);
@@ -83,17 +82,27 @@ export function ProductsProvider({ children }) {
     }, delay);
   };
 
-  const filterByCategory = productState.categoryInput.length
+  let filterByCategory = productState.categoryInput.length
     ? productState.products.filter((product) =>
         productState.categoryInput.includes(product.categoryName)
       )
     : productState.products;
 
+  filterByCategory = filterByCategory.filter(
+    (product) => productState.ratingRange >= product.rating
+  );
+
+  filterByCategory = productState.sortPriceRadioInput
+    ? filterByCategory.sort((a, b) =>
+        productState.sortPriceRadioInput === "lowToHigh"
+          ? a.price - b.price
+          : b.price - a.price
+      )
+    : filterByCategory;
+
   return (
     <ProductContext.Provider
       value={{
-        showFilters,
-        setShowFilters,
         loading,
         getAllProducts,
         productState,
@@ -101,6 +110,8 @@ export function ProductsProvider({ children }) {
         filterByCategory,
         getProductById,
         handleProductAction,
+        // sortByPrice,
+        // filterByRating,
       }}
     >
       {children}
