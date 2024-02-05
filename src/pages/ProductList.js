@@ -55,46 +55,51 @@ export default function ProductList() {
                       >
                         <img src={image} alt={`${_id}`} />
                       </div>
-                      <p>{name}</p>
-                      <div className="product-list-prices">
-                        <span className="currency">{currency}</span>
-                        <span className="price">{price}</span>
+                      <div className="product-card-detail">
+                        <p>{name}</p>
+                        <div className="product-list-prices">
+                          <span className="currency">{currency}</span>
+                          <span className="price">{price}</span>
+                        </div>
+                        {itemInCart(_id) ? (
+                          <button
+                            className="btn cart-btn"
+                            onClick={gotoCartPage}
+                          >
+                            {" "}
+                            Go to Cart{" "}
+                          </button>
+                        ) : (
+                          <button
+                            className="btn cart-btn"
+                            onClick={() =>
+                              handleProductAction(600, addToCart, product)
+                            }
+                          >
+                            {" "}
+                            Add to Cart{" "}
+                          </button>
+                        )}
+                        {itemInWishlist(_id) ? (
+                          <button
+                            className="btn wishlist-btn"
+                            onClick={gotoWishlistPage}
+                          >
+                            {" "}
+                            Go to Wishlist{" "}
+                          </button>
+                        ) : (
+                          <button
+                            className="btn wishlist-btn"
+                            onClick={() =>
+                              handleProductAction(600, addToWishlist, product)
+                            }
+                          >
+                            {" "}
+                            Add to Wishlist{" "}
+                          </button>
+                        )}
                       </div>
-                      {itemInCart(_id) ? (
-                        <button className="btn cart-btn" onClick={gotoCartPage}>
-                          {" "}
-                          Go to Cart{" "}
-                        </button>
-                      ) : (
-                        <button
-                          className="btn cart-btn"
-                          onClick={() =>
-                            handleProductAction(600, addToCart, product)
-                          }
-                        >
-                          {" "}
-                          Add to Cart{" "}
-                        </button>
-                      )}
-                      {itemInWishlist(_id) ? (
-                        <button
-                          className="btn wishlist-btn"
-                          onClick={gotoWishlistPage}
-                        >
-                          {" "}
-                          Go to Wishlist{" "}
-                        </button>
-                      ) : (
-                        <button
-                          className="btn wishlist-btn"
-                          onClick={() =>
-                            handleProductAction(600, addToWishlist, product)
-                          }
-                        >
-                          {" "}
-                          Add to Wishlist{" "}
-                        </button>
-                      )}
                     </div>
                   );
                 })}

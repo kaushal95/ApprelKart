@@ -52,7 +52,7 @@ function SidebarFilter() {
             <div className="filter-text">Category</div>
             <div className="filter-input category">
               {productState.allCategories.map((category, index) => (
-                <div>
+                <div key={`category-${index}`}>
                   <input
                     type="checkbox"
                     id={`custom-checkbox-${index}`}

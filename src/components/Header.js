@@ -1,10 +1,13 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 // import { CartContext } from "..";
 import { useAuth } from "../context/AuthContext";
+import { Searchbar } from "./SearchBar";
 export function Header() {
   // const { cart } = useContext(CartContext);
   const { token, logoutHandler } = useAuth();
+  const location = useLocation();
+  console.log(location);
   console.log(token, "header");
   return (
     <div className="header-container">
@@ -15,9 +18,9 @@ export function Header() {
               Apparel<span className="color-contrast">Kart</span>
             </span>
           </NavLink>
-          <NavLink to="/product-list">Explore</NavLink>
+          {/* <NavLink to="/product-list">Explore</NavLink> */}
         </div>
-
+        {location.pathname === "/product-list/" ? <Searchbar /> : null}
         <div className="nav-right">
           <div className="nav-icon">
             <span className="material-icons-outlined">account_circle</span>

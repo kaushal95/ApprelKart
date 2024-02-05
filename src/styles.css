@@ -87,6 +87,15 @@ header
   font-weight: 600;
   text-shadow: 5px 0px 5px gray;
 }
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+}
+.search-bar input {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: unset;
+}
 .color-contrast {
   color: var(--color-primary);
 }
@@ -536,7 +545,9 @@ input {
   /* display: grid; */
   /* grid-template-columns: 1fr 1fr; */
 }
-
+.product-card-detail {
+  margin: 0 var(--space3);
+}
 .product-collection-content {
   bottom: 75px;
   left: 55px;
@@ -622,10 +633,99 @@ input {
   border-color: var(--color-primary);
 }
 .cart-btn,
-.wishlisht-btn {
+.wishlist-btn {
   display: block;
   margin: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+/* ***********************cart page*************************  */
+.cart.product-detail {
+  gap: 0;
+}
+.cart.product-detail > p {
+  font-size: larger;
+  margin-top: 0.5rem;
+}
+.cart .product-list-prices {
+  display: flex;
+  align-items: center;
+  font-size: large;
+}
+.cart .product-list-prices p {
+  width: 25%;
+}
+.price-container {
+  width: 50%;
+  margin: var(--space3);
+}
+.product-quantity-container {
+  display: flex;
+  align-items: center;
+}
+.qty-label {
+  width: 25%;
+}
+.qty-btns {
+  border: 1px solid var(--standard-grey);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: var(--space3);
+  padding: var(--space2);
+  width: 50%;
+}
+.qty-btn {
+  color: black;
+  border: none;
+  background-color: transparent;
+}
+.qty-value,
+.qty-btn {
+  font-size: large;
+}
+.qty-btn:hover {
+  cursor: pointer;
+}
+.qty-btn:disabled {
+  cursor: not-allowed;
+}
+.priceblock-container {
+  border: 1px solid black;
+  box-shadow: 4px 6px 5px gray;
+  width: 400px;
+  margin: 1rem auto;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.pricedetail-row,
+.pricedetail-total {
+  /* display: flex; */
+  color: var(--standard-dark-grey);
+  /* justify-content: flex-start; */
+  margin: var(--space3) 5%;
+  width: 90%;
+  text-align: left;
+}
+.pricedetail-value {
+  float: right;
+  color: var(--standard-black);
+}
+.priceblock-priceHeader {
+  margin-top: var(--space3);
+}
+.pricedetail-total {
+  border-top: 1px solid var(--standard-grey);
+  margin-top: var(--space3);
+  padding: var(--space2) 0px;
+  color: var(--standard-black);
+  font-weight: bold;
+}
+.checkout-btn {
+  width: 90%;
+  margin-bottom: var(--space3);
 }
 
 @media (min-width: 1020px) {

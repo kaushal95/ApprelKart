@@ -56,7 +56,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = async ({ _id: productId, name }) => {
     try {
-      const response = await removeItemFromCart(productId, token);
+      const response = await removeItemFromCart(token, productId);
 
       if (response.status === 200) {
         const { cart } = await response.json();
@@ -77,7 +77,7 @@ export const CartProvider = ({ children }) => {
         const { cart } = await response.json();
         cartDispatch({ type: "UPDATE_QUANTITY_IN_CART", payload: cart });
         toast.success(
-          actionType === "increment"
+          actionType?.type === "increment"
             ? `Added one more ${name} to the cart sucessfully!`
             : `Removed one ${name} from cart successfully!`
         );

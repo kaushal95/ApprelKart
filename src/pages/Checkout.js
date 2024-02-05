@@ -4,7 +4,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import { useWishlist } from "../context/WishListContext";
 import { useAuth } from "../context/AuthContext";
-
 export function Cart() {
   const { token } = useAuth();
   const {
@@ -89,13 +88,11 @@ export function Cart() {
                             600,
                             updateQuantityInCart,
                             { _id, name },
-
-                            { type: "decrement" }
+                            { type: "increment" }
                           )
                         }
-                        disabled={qty <= 1}
                       >
-                        {" - "}{" "}
+                        {" + "}{" "}
                       </button>
                       <span className="qty-value">{qty}</span>
                       <button
@@ -105,11 +102,12 @@ export function Cart() {
                             600,
                             updateQuantityInCart,
                             { _id, name },
-                            { type: "increment" }
+
+                            { type: "decrement" }
                           )
                         }
                       >
-                        {" + "}{" "}
+                        {" - "}{" "}
                       </button>
                     </div>
                   </div>
