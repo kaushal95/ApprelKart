@@ -469,6 +469,23 @@ input {
   border: 3px solid var(--color-primary);
   outline: none;
 }
+.login-password-input {
+  position: relative;
+}
+.login-password-input input {
+  width: 100%;
+}
+.login-password-input span {
+  position: absolute;
+  text-align: center;
+  right: 10px;
+  top: 5px;
+  font-size: medium;
+  color: var(--grey-placeholder);
+}
+.login-password-input span:hover {
+  cursor: pointer;
+}
 .sidebar {
   display: none;
 }
@@ -483,6 +500,12 @@ input {
 }
 
 /* @media (min-width: 760px) { */
+.loader {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-25%, 25%);
+}
 .sidebar {
   display: block;
   position: fixed;
@@ -500,6 +523,7 @@ input {
   display: flex;
   justify-content: space-between;
   margin: 1rem auto;
+  align-items: center;
 }
 .filter-left-container {
   width: 250px;

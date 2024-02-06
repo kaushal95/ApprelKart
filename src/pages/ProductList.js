@@ -6,6 +6,7 @@ import { useProducts } from "../context/ProductContext";
 import { useWishlist } from "../context/WishListContext";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import { ProgressBar } from "react-loader-spinner";
 
 export default function ProductList() {
   const { token } = useAuth();
@@ -36,7 +37,7 @@ export default function ProductList() {
   return (
     <>
       {loading ? (
-        "loading"
+        <ProgressBar />
       ) : (
         <>
           <div className="product-page">

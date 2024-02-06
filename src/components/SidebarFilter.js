@@ -14,6 +14,7 @@ function SidebarFilter() {
         <div className="sidebar-head">
           <h4>Filters</h4>
           <button
+            className="btn clear-filter-btn"
             onClick={() =>
               productDispatch({
                 type: "CLEAR_FILTERS",

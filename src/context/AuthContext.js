@@ -41,6 +41,8 @@ export function AuthProvider({ children }) {
         setToken(encodedToken);
         setUser(createdUser);
         navigate("/");
+      } else if (response?.status === 422) {
+        toast.error(`Email is already registered.`);
       }
     } catch (error) {
       console.log(error);

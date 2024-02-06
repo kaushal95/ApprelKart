@@ -100,6 +100,14 @@ export function ProductsProvider({ children }) {
       )
     : filterByCategory;
 
+  filterByCategory = productState.searchInput
+    ? filterByCategory.filter((product) =>
+        product.name
+          .toLowerCase()
+          .includes(productState.searchInput.toLowerCase())
+      )
+    : filterByCategory;
+
   return (
     <ProductContext.Provider
       value={{

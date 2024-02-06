@@ -36,13 +36,13 @@ export function Header() {
           {token ? (
             <NavLink to="/login">
               <div className="badge-icon nav-badge-icon">
-                <span className="material-icons-outlined">login</span>
+                <span className="material-icons-outlined">logout</span>
               </div>
             </NavLink>
           ) : (
             <div className="badge-icon nav-badge-icon">
               <span className="material-icons-outlined" onClick={logoutHandler}>
-                logout
+                login
               </span>
             </div>
           )}
