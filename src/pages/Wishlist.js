@@ -4,7 +4,8 @@ import { CartContext, useCart } from "../context/CartContext";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import { useAuth } from "../context/AuthContext";
-export function Wishlist() {
+
+export default function Wishlist() {
   const {
     wishlistState: { wishlist },
     isLoading,

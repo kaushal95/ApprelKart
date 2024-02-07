@@ -5,7 +5,7 @@ import { useProducts } from "../context/ProductContext";
 import { useWishlist } from "../context/WishListContext";
 import { useAuth } from "../context/AuthContext";
 
-export function Cart() {
+export default function Cart() {
   const { token } = useAuth();
   const {
     getAllProducts,
@@ -36,8 +36,8 @@ export function Cart() {
     await getProductById(productId);
     navigate(path);
   };
-  const gotoCartPage = () => {
-    navigate("/cart");
+  const gotoCheckoutPage = () => {
+    navigate("/checkout");
   };
   const gotoWishlistPage = () => {
     navigate("/wishlist");
@@ -45,177 +45,173 @@ export function Cart() {
 
   return (
     <div>
-      {/* {
-        cart.length ? cart.length === 1 "item" : cart.length > 1? "items" : No
-      } */}
       <h3> {cart.length} items in your cart </h3>
-      <div className="product-list-layout">
-        {cart.length &&
-          cart.map((product) => {
-            const { _id, name, price, image, currency, qty } = product;
-            return (
-              <div
-                key={_id}
-                style={{
-                  border: "1px solid black",
-                  margin: "0.5rem",
-                  padding: "0.5rem",
-                }}
-                className="product-list-outline"
-              >
+      {cart.length ? (
+        <>
+          <div className="product-list-layout">
+            {cart.map((product) => {
+              const { _id, name, price, image, currency, qty } = product;
+              return (
                 <div
-                  className="product-list img-container"
-                  onClick={() => handleClick(_id)}
+                  key={_id}
+                  style={{
+                    border: "1px solid black",
+                    margin: "0.5rem",
+                    padding: "0.5rem",
+                  }}
+                  className="product-list-outline"
                 >
-                  <img src={image} alt={`${_id}`} />
-                </div>
-                <div className="cart product-detail">
-                  <p>{name}</p>
-                  <div className="product-list-prices">
-                    <p>Price</p>
-                    <div className="price-container">
-                      <span className="currency">{currency}</span>
-                      <span className="price">{price}</span>
-                    </div>
+                  <div
+                    className="product-list img-container"
+                    onClick={() => handleClick(_id)}
+                  >
+                    <img src={image} alt={`${_id}`} />
                   </div>
-
-                  <div className="product-quantity-container">
-                    <p className="qty-label">Quantity </p>
-                    <div className="qty-btns">
-                      <button
-                        className="qty-btn"
-                        onClick={() =>
-                          handleProductAction(
-                            600,
-                            updateQuantityInCart,
-                            { _id, name },
-
-                            { type: "decrement" }
-                          )
-                        }
-                        disabled={qty <= 1}
-                      >
-                        {" - "}{" "}
-                      </button>
-                      <span className="qty-value">{qty}</span>
-                      <button
-                        className="qty-btn"
-                        onClick={() =>
-                          handleProductAction(
-                            600,
-                            updateQuantityInCart,
-                            { _id, name },
-                            { type: "increment" }
-                          )
-                        }
-                      >
-                        {" + "}{" "}
-                      </button>
+                  <div className="cart product-detail">
+                    <p>{name}</p>
+                    <div className="product-list-prices">
+                      <p>Price</p>
+                      <div className="price-container">
+                        <span className="currency">{currency}</span>
+                        <span className="price">{price}</span>
+                      </div>
                     </div>
+
+                    <div className="product-quantity-container">
+                      <p className="qty-label">Quantity </p>
+                      <div className="qty-btns">
+                        <button
+                          className="qty-btn"
+                          onClick={() =>
+                            handleProductAction(
+                              600,
+                              updateQuantityInCart,
+                              { _id, name },
+
+                              { type: "decrement" }
+                            )
+                          }
+                          disabled={qty <= 1}
+                        >
+                          {" - "}{" "}
+                        </button>
+                        <span className="qty-value">{qty}</span>
+                        <button
+                          className="qty-btn"
+                          onClick={() =>
+                            handleProductAction(
+                              600,
+                              updateQuantityInCart,
+                              { _id, name },
+                              { type: "increment" }
+                            )
+                          }
+                        >
+                          {" + "}{" "}
+                        </button>
+                      </div>
+                    </div>
+                    {itemInCart(_id) ? (
+                      <button
+                        className="btn cart-btn"
+                        onClick={() =>
+                          handleProductAction(600, removeFromCart, product)
+                        }
+                      >
+                        {" "}
+                        Remove From Cart{" "}
+                      </button>
+                    ) : (
+                      <button
+                        className="btn cart-btn"
+                        onClick={() =>
+                          handleProductAction(600, addToCart, product)
+                        }
+                      >
+                        {" "}
+                        Add to Cart{" "}
+                      </button>
+                    )}
+                    {itemInWishlist(_id) ? (
+                      <button
+                        className="btn wishlist-btn"
+                        onClick={gotoWishlistPage}
+                      >
+                        {" "}
+                        Go to Wishlist{" "}
+                      </button>
+                    ) : (
+                      <button
+                        className="btn wishlist-btn"
+                        onClick={() =>
+                          handleProductAction(600, addToWishlist, product)
+                        }
+                      >
+                        {" "}
+                        Add to Wishlist{" "}
+                      </button>
+                    )}
                   </div>
-                  {itemInCart(_id) ? (
-                    <button
-                      className="btn cart-btn"
-                      onClick={() =>
-                        handleProductAction(600, removeFromCart, product)
-                      }
-                    >
-                      {" "}
-                      Remove From Cart{" "}
-                    </button>
-                  ) : (
-                    <button
-                      className="btn cart-btn"
-                      onClick={() =>
-                        handleProductAction(600, addToCart, product)
-                      }
-                    >
-                      {" "}
-                      Add to Cart{" "}
-                    </button>
-                  )}
-                  {itemInWishlist(_id) ? (
-                    <button
-                      className="btn wishlist-btn"
-                      onClick={gotoWishlistPage}
-                    >
-                      {" "}
-                      Go to Wishlist{" "}
-                    </button>
-                  ) : (
-                    <button
-                      className="btn wishlist-btn"
-                      onClick={() =>
-                        handleProductAction(600, addToWishlist, product)
-                      }
-                    >
-                      {" "}
-                      Add to Wishlist{" "}
-                    </button>
-                  )}
                 </div>
+              );
+            })}
+          </div>
+          <div className="priceblock-container">
+            <div className="priceblock-priceHeader">
+              PRICE DETAILS ({cart.length} Items)
+            </div>
+            <div className="pricebreakUp-order-summary" id="priceBlock">
+              <div className="pricedetail-row ">
+                <span className=" ">Total MRP</span>
+                <span className="pricedetail-value">
+                  <span></span>
+                  <span>
+                    {" "}
+                    <span className="">₹</span>
+                    {totalCartPrice}
+                  </span>
+                </span>
               </div>
-            );
-          })}
-      </div>
-
-      <div className="priceblock-container">
-        <div className="priceblock-priceHeader">
-          PRICE DETAILS ({cart.length} Items)
-        </div>
-        <div className="pricebreakUp-order-summary" id="priceBlock">
-          <div className="pricedetail-row ">
-            <span className=" ">Total MRP</span>
-            <span className="pricedetail-value">
-              <span></span>
-              <span>
-                {" "}
-                <span className="">₹</span>
-                {totalCartPrice}
-              </span>
-            </span>
+              <div className="pricedetail-row ">
+                <span className=" ">Discount on MRP</span>
+                <span className="pricedetail-value pricedetail-discount">
+                  <span>
+                    {" "}
+                    <span className="">₹</span>0
+                  </span>
+                </span>
+              </div>
+              <div className="pricedetail-row ">
+                <span>Shipping Fee</span>
+                <span className="pricedetail-value">
+                  <span className="pricedetail-discount">
+                    {" "}
+                    <span className="">₹</span>
+                    {shippingFee}
+                  </span>
+                </span>
+              </div>
+              <div className="pricedetail-total ">
+                <span className=" ">Total Amount</span>
+                <span className="pricedetail-value">
+                  <span></span>
+                  <span>
+                    {" "}
+                    <span className="pricedetail-rupee-total-icon">₹</span>
+                    {totalCartPrice + shippingFee}
+                  </span>
+                </span>
+              </div>
+              <div>
+                <button className="btn checkout-btn" onClick={gotoCheckoutPage}>
+                  {" "}
+                  Checkout{" "}
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="pricedetail-row ">
-            <span className=" ">Discount on MRP</span>
-            <span className="pricedetail-value pricedetail-discount">
-              <span>
-                {" "}
-                <span className="">₹</span>0
-              </span>
-            </span>
-          </div>
-          <div className="pricedetail-row ">
-            <span>Shipping Fee</span>
-            <span className="pricedetail-value">
-              <span className="pricedetail-discount">
-                {" "}
-                <span className="">₹</span>
-                {shippingFee}
-              </span>
-            </span>
-          </div>
-          <div className="pricedetail-total ">
-            <span className=" ">Total Amount</span>
-            <span className="pricedetail-value">
-              <span></span>
-              <span>
-                {" "}
-                <span className="pricedetail-rupee-total-icon">₹</span>
-                {totalCartPrice + shippingFee}
-              </span>
-            </span>
-          </div>
-          <div>
-            <button
-              className="btn checkout-btn"
-              // onClick={() => handleProductAction(600, removeFromCart, product)}
-            >
-              {" "}
-              Checkout{" "}
-            </button>
-          </div>
-        </div>
-      </div>
+        </>
+      ) : null}
     </div>
   );
 }

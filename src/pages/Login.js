@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
-function Login() {
+export default function Login() {
   const { token, user, loginHandler, signupHandler, logoutHandler } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -76,5 +76,3 @@ function Login() {
     </main>
   );
 }
-
-export default Login;

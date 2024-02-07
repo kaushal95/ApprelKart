@@ -28,7 +28,7 @@ export default function Home() {
         <div className="hero-container-content">
           <h2 className="hero-container-title">Essentials for a cold winter</h2>
           <span className="hero-container-subtitle">
-            Discover Autumn Winter 2021
+            Discover Autumn Winter 2023
           </span>
           <button className="btn hero-button">shop now</button>
         </div>
@@ -72,7 +72,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      Home
     </main>
   );
 }

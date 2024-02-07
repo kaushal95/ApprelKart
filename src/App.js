@@ -1,15 +1,19 @@
-import ProductList from "./pages/ProductList";
-import "./styles.css";
-import { Toaster } from "react-hot-toast";
 import { Routes, Route, Link } from "react-router-dom";
-import { Cart } from "./pages/Cart";
-import { Wishlist } from "./pages/Wishlist";
-import { Header } from "./components/Header";
-import Product from "./pages/Product";
+import { Toaster } from "react-hot-toast";
+
+import Wishlist from "./pages/Wishlist";
 import Home from "./pages/Home";
 import MockMan from "mockman-js";
+import ProductList from "./pages/ProductList";
 import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
+import Checkout from "./pages/Checkout";
+import Cart from "./pages/Cart";
+import Product from "./pages/Product";
+
+import { Header } from "./components/Header";
+
+import "./styles.css";
 
 export default function App() {
   return (
@@ -32,6 +36,7 @@ export default function App() {
         <Route path="/product-list/:productId" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </div>
   );

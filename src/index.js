@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
@@ -13,7 +13,8 @@ export { CartContext, AuthContext, WishlistContext, ProductContext };
 // Call make Server
 makeServer();
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <Router>
     <AuthProvider>
       <ProductsProvider>
@@ -24,6 +25,5 @@ ReactDOM.render(
         </WishlistProvider>
       </ProductsProvider>
     </AuthProvider>
-  </Router>,
-  document.getElementById("root")
+  </Router>
 );

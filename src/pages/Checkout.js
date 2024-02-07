@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import { useWishlist } from "../context/WishListContext";
 import { useAuth } from "../context/AuthContext";
-export function Cart() {
+export default function Checkout() {
   const { token } = useAuth();
   const {
     getAllProducts,
@@ -43,177 +43,153 @@ export function Cart() {
   };
 
   return (
-    <div>
-      {/* {
-        cart.length ? cart.length === 1 "item" : cart.length > 1? "items" : No
-      } */}
-      <h3> {cart.length} items in your cart </h3>
-      <div className="product-list-layout">
-        {cart.length &&
-          cart.map((product) => {
-            const { _id, name, price, image, currency, qty } = product;
-            return (
+    <>
+      <div className="address-container">
+        <form className="form address-popup">
+          <h2>Add Address</h2>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            name="st"
+            id="address"
+            placeholder="Flat, House no., Building, Apartment"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            name="name"
+            id="area"
+            placeholder="Area, Street, Sector, Village"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            name="name"
+            id="landmark"
+            placeholder="Landmark E.g. near apollo hospital"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="number"
+            name="pincode"
+            id="pincode"
+            placeholder="6 digits Pincode"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            name="name"
+            id="state"
+            placeholder="State"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            name="country"
+            id="country"
+            placeholder="Country"
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
+          />
+          <button
+            className="btn signup-btn"
+            action="submit"
+            // onClick={handleSignup}
+          >
+            Add Address
+          </button>
+          <button
+            className="btn signup-btn"
+            action="submit"
+            // onClick={handleSignup}
+          >
+            Use Dummy Address
+          </button>
+        </form>
+      </div>
+      <div>
+        <div className="priceblock-container">
+          <div className="orderblock-orderHeader ">ORDER DETAILS</div>
+          <div className="orderbreakUp-order-summary" id="orderblock">
+            {cart.map((product, index) => (
               <div
-                key={_id}
-                style={{
-                  border: "1px solid black",
-                  margin: "0.5rem",
-                  padding: "0.5rem",
-                }}
-                className="product-list-outline"
+                className="orderdetail-row"
+                key={`${product._id}-delivery-details`}
               >
-                <div
-                  className="product-list img-container"
-                  onClick={() => handleClick(_id)}
-                >
-                  <img src={image} alt={`${_id}`} />
-                </div>
-                <div className="cart product-detail">
-                  <p>{name}</p>
-                  <div className="product-list-prices">
-                    <p>Price</p>
-                    <div className="price-container">
-                      <span className="currency">{currency}</span>
-                      <span className="price">{price}</span>
-                    </div>
-                  </div>
-
-                  <div className="product-quantity-container">
-                    <p className="qty-label">Quantity </p>
-                    <div className="qty-btns">
-                      <button
-                        className="qty-btn"
-                        onClick={() =>
-                          handleProductAction(
-                            600,
-                            updateQuantityInCart,
-                            { _id, name },
-                            { type: "increment" }
-                          )
-                        }
-                      >
-                        {" + "}{" "}
-                      </button>
-                      <span className="qty-value">{qty}</span>
-                      <button
-                        className="qty-btn"
-                        onClick={() =>
-                          handleProductAction(
-                            600,
-                            updateQuantityInCart,
-                            { _id, name },
-
-                            { type: "decrement" }
-                          )
-                        }
-                      >
-                        {" - "}{" "}
-                      </button>
-                    </div>
-                  </div>
-                  {itemInCart(_id) ? (
-                    <button
-                      className="btn cart-btn"
-                      onClick={() =>
-                        handleProductAction(600, removeFromCart, product)
-                      }
-                    >
-                      {" "}
-                      Remove From Cart{" "}
-                    </button>
-                  ) : (
-                    <button
-                      className="btn cart-btn"
-                      onClick={() =>
-                        handleProductAction(600, addToCart, product)
-                      }
-                    >
-                      {" "}
-                      Add to Cart{" "}
-                    </button>
-                  )}
-                  {itemInWishlist(_id) ? (
-                    <button
-                      className="btn wishlist-btn"
-                      onClick={gotoWishlistPage}
-                    >
-                      {" "}
-                      Go to Wishlist{" "}
-                    </button>
-                  ) : (
-                    <button
-                      className="btn wishlist-btn"
-                      onClick={() =>
-                        handleProductAction(600, addToWishlist, product)
-                      }
-                    >
-                      {" "}
-                      Add to Wishlist{" "}
-                    </button>
-                  )}
-                </div>
+                <span className=" ">{product.name}</span>
+                <span className="orderdetail-value">
+                  <span></span>
+                  <span>
+                    {" "}
+                    <span className="">₹</span>
+                    {`${product.price} × ${product.qty}`}
+                  </span>
+                </span>
               </div>
-            );
-          })}
-      </div>
-
-      <div className="priceblock-container">
-        <div className="priceblock-priceHeader">
-          PRICE DETAILS ({cart.length} Items)
-        </div>
-        <div className="pricebreakUp-order-summary" id="priceBlock">
-          <div className="pricedetail-row ">
-            <span className=" ">Total MRP</span>
-            <span className="pricedetail-value">
-              <span></span>
-              <span>
-                {" "}
-                <span className="">₹</span>
-                {totalCartPrice}
+            ))}
+          </div>
+          <div className="priceblock-priceHeader">
+            PRICE DETAILS ({cart.length} Items)
+          </div>
+          <div className="pricebreakUp-order-summary" id="priceBlock">
+            <div className="pricedetail-row ">
+              <span className=" ">Total MRP</span>
+              <span className="pricedetail-value">
+                <span></span>
+                <span>
+                  {" "}
+                  <span className="">₹</span>
+                  {totalCartPrice}
+                </span>
               </span>
-            </span>
-          </div>
-          <div className="pricedetail-row ">
-            <span className=" ">Discount on MRP</span>
-            <span className="pricedetail-value pricedetail-discount">
-              <span>
-                {" "}
-                <span className="">₹</span>0
+            </div>
+            <div className="pricedetail-row ">
+              <span className=" ">Discount on MRP</span>
+              <span className="pricedetail-value pricedetail-discount">
+                <span>
+                  {" "}
+                  <span className="">₹</span>0
+                </span>
               </span>
-            </span>
-          </div>
-          <div className="pricedetail-row ">
-            <span>Shipping Fee</span>
-            <span className="pricedetail-value">
-              <span className="pricedetail-discount">
-                {" "}
-                <span className="">₹</span>
-                {shippingFee}
+            </div>
+            <div className="pricedetail-row ">
+              <span>Shipping Fee</span>
+              <span className="pricedetail-value">
+                <span className="pricedetail-discount">
+                  {" "}
+                  <span className="">₹</span>
+                  {shippingFee}
+                </span>
               </span>
-            </span>
-          </div>
-          <div className="pricedetail-total ">
-            <span className=" ">Total Amount</span>
-            <span className="pricedetail-value">
-              <span></span>
-              <span>
-                {" "}
-                <span className="pricedetail-rupee-total-icon">₹</span>
-                {totalCartPrice + shippingFee}
+            </div>
+            <div className="pricedetail-total ">
+              <span className=" ">Total Amount</span>
+              <span className="pricedetail-value">
+                <span></span>
+                <span>
+                  {" "}
+                  <span className="pricedetail-rupee-total-icon">₹</span>
+                  {totalCartPrice + shippingFee}
+                </span>
               </span>
-            </span>
+            </div>
           </div>
-          <div>
-            <button
-              className="btn checkout-btn"
-              // onClick={() => handleProductAction(600, removeFromCart, product)}
-            >
-              {" "}
-              Checkout{" "}
-            </button>
-          </div>
+          <div className="deliveryblock-priceHeader">Deliver To</div>
+          <div>Please Select an address to checkout.</div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
