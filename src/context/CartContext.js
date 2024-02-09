@@ -18,7 +18,7 @@ import cartReducer, { initialCartState } from "../reducers/cartReducer";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const { token } = useAuth();
+  const { token, userDispatch } = useAuth();
   const [cartState, cartDispatch] = useReducer(cartReducer, initialCartState);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,6 +31,7 @@ export const CartProvider = ({ children }) => {
       if (response.status === 200) {
         const { cart } = await response.json();
         cartDispatch({ type: "DISPLAY_CART", payload: cart });
+        userDispatch({ type: "CART", payload: cart });
       }
     } catch (error) {
       console.error(error);
@@ -46,6 +47,8 @@ export const CartProvider = ({ children }) => {
       if (response.status === 201) {
         const { cart } = await response.json();
         cartDispatch({ type: "ADD_TO_CART", payload: cart });
+        userDispatch({ type: "CART", payload: cart });
+
         toast.success(`${product.name} added to cart successfully!`);
       }
     } catch (error) {
@@ -61,6 +64,8 @@ export const CartProvider = ({ children }) => {
       if (response.status === 200) {
         const { cart } = await response.json();
         cartDispatch({ type: "REMOVE_FROM_CART", payload: cart });
+        userDispatch({ type: "CART", payload: cart });
+
         toast.success(`${name} removed from cart successfully!`);
       }
     } catch (error) {
@@ -76,6 +81,8 @@ export const CartProvider = ({ children }) => {
       if (response.status === 200) {
         const { cart } = await response.json();
         cartDispatch({ type: "UPDATE_QUANTITY_IN_CART", payload: cart });
+        userDispatch({ type: "CART", payload: cart });
+
         toast.success(
           actionType?.type === "increment"
             ? `Added one more ${name} to the cart sucessfully!`

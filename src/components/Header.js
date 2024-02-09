@@ -22,9 +22,11 @@ export function Header() {
         </div>
         {location.pathname === "/product-list/" ? <Searchbar /> : null}
         <div className="nav-right">
-          <div className="nav-icon">
-            <span className="material-icons-outlined">account_circle</span>
-          </div>
+          <NavLink to="/profile">
+            <div className="nav-icon">
+              <span className="material-icons-outlined">account_circle</span>
+            </div>
+          </NavLink>
           <div className="badge-icon nav-badge-icon">
             <span className="material-icons-outlined">favorite_border</span>
           </div>
@@ -36,15 +38,20 @@ export function Header() {
           {token ? (
             <NavLink to="/login">
               <div className="badge-icon nav-badge-icon">
-                <span className="material-icons-outlined">logout</span>
+                <span
+                  className="material-icons-outlined"
+                  onClick={logoutHandler}
+                >
+                  logout
+                </span>
               </div>
             </NavLink>
           ) : (
-            <div className="badge-icon nav-badge-icon">
-              <span className="material-icons-outlined" onClick={logoutHandler}>
-                login
-              </span>
-            </div>
+            <NavLink to="/login">
+              <div className="badge-icon nav-badge-icon">
+                <span className="material-icons-outlined">login</span>
+              </div>
+            </NavLink>
           )}
         </div>
       </nav>

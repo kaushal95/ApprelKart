@@ -10,6 +10,7 @@ import Signup from "./pages/SignUp";
 import Checkout from "./pages/Checkout";
 import Cart from "./pages/Cart";
 import Product from "./pages/Product";
+import Profile from "./pages/Profile";
 
 import { Header } from "./components/Header";
 
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

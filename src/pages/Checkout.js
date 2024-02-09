@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext, useCart } from "../context/CartContext";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import { useWishlist } from "../context/WishListContext";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 export default function Checkout() {
   const { token } = useAuth();
   const {
@@ -25,6 +26,18 @@ export default function Checkout() {
   } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [address, setAddress] = useState({
+    name: "",
+    houseNo: "",
+    area: "",
+    landmark: "",
+    city: "",
+    pincode: "",
+    state: "",
+    country: "",
+  });
+
   const totalCartPrice = cart.reduce(
     (totalPrice, item) => (totalPrice += item.price * item.qty),
     0
@@ -42,103 +55,163 @@ export default function Checkout() {
     navigate("/wishlist");
   };
 
+  const handleAddressInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const newAddress = { ...address, [name]: e.target.value };
+    setAddress(newAddress);
+  };
+
+  const handleAdressAdd = (e) => {
+    e.preventDefault();
+    if (
+      !address.name ||
+      !address.houseNo ||
+      !address.area ||
+      !address.pincode ||
+      !address.state ||
+      !address.country ||
+      !address.city
+    ) {
+      toast({
+        message: `Please enter complete address`,
+      });
+    }
+  };
+  const handleDummyAddress = (e) => {
+    e.preventDefault();
+
+    const dummyAddress = {
+      name: "John Doe",
+      houseNo: "125",
+      area: "Akshya Nagar 1st Block, Rammurthy nagar",
+      landmark: "1st Cross",
+      city: "Bangalore",
+      state: "Karnataka",
+      pincode: 560016,
+      country: "India",
+    };
+    setAddress(dummyAddress);
+  };
   return (
     <>
-      <div className="address-container">
-        <form className="form address-popup">
-          <h2>Add Address</h2>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            name="st"
-            id="address"
-            placeholder="Flat, House no., Building, Apartment"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            name="name"
-            id="area"
-            placeholder="Area, Street, Sector, Village"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            name="name"
-            id="landmark"
-            placeholder="Landmark E.g. near apollo hospital"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="number"
-            name="pincode"
-            id="pincode"
-            placeholder="6 digits Pincode"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            name="name"
-            id="state"
-            placeholder="State"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            name="country"
-            id="country"
-            placeholder="Country"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-          <button
-            className="btn signup-btn"
-            action="submit"
-            // onClick={handleSignup}
-          >
-            Add Address
-          </button>
-          <button
-            className="btn signup-btn"
-            action="submit"
-            // onClick={handleSignup}
-          >
-            Use Dummy Address
-          </button>
-        </form>
-      </div>
+      <button className="btn add-address-btn" onClick={() => setOpen(true)}>
+        Add Address +
+      </button>
+      {open ? (
+        <div className="address-container">
+          <form className="form address-popup">
+            <span
+              className="material-icons-outlined close-icon"
+              onClick={() => setOpen(false)}
+            >
+              close
+            </span>
+            <h2>Add Address</h2>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Name"
+              value={address.name}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <input
+              type="text"
+              name="houseNo"
+              id="houseNo"
+              placeholder="Flat, House no., Building, Apartment"
+              value={address.houseNo}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <input
+              type="text"
+              name="area"
+              id="area"
+              placeholder="Area, Street, Sector, Village"
+              value={address.area}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <input
+              type="text"
+              name="landmark"
+              id="landmark"
+              placeholder="Landmark E.g. near apollo hospital"
+              value={address.landmark}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <input
+              type="number"
+              name="pincode"
+              id="pincode"
+              placeholder="6 digits Pincode"
+              value={address.pincode}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <input
+              type="text"
+              name="state"
+              id="state"
+              placeholder="State"
+              value={address.state}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <input
+              type="text"
+              name="city"
+              id="city"
+              placeholder="City"
+              value={address.city}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <input
+              type="text"
+              name="country"
+              id="country"
+              placeholder="Country"
+              value={address.country}
+              onChange={(e) => handleAddressInput(e)}
+            />
+            <button
+              className="btn signup-btn"
+              action="submit"
+              onClick={handleAdressAdd}
+            >
+              Add Address
+            </button>
+            <button
+              className="btn signup-btn"
+              action="submit"
+              onClick={handleDummyAddress}
+            >
+              Use Dummy Address
+            </button>
+          </form>
+        </div>
+      ) : null}
+
       <div>
         <div className="priceblock-container">
-          <div className="orderblock-orderHeader ">ORDER DETAILS</div>
-          <div className="orderbreakUp-order-summary" id="orderblock">
-            {cart.map((product, index) => (
-              <div
-                className="orderdetail-row"
-                key={`${product._id}-delivery-details`}
-              >
-                <span className=" ">{product.name}</span>
-                <span className="orderdetail-value">
-                  <span></span>
-                  <span>
-                    {" "}
-                    <span className="">₹</span>
-                    {`${product.price} × ${product.qty}`}
+          <div className="orderblock-container">
+            <div className="orderblock-orderHeader ">ORDER DETAILS</div>
+            <div className="orderbreakUp-order-summary" id="orderblock">
+              {cart.map((product, index) => (
+                <div
+                  className="orderdetail-row"
+                  key={`${product._id}-delivery-details`}
+                >
+                  <span className=" ">{product.name}</span>
+                  <span className="orderdetail-value">
+                    <span></span>
+                    <span>
+                      {" "}
+                      <span className="">₹</span>
+                      {`${product.price} × ${product.qty}`}
+                    </span>
                   </span>
-                </span>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
           <div className="priceblock-priceHeader">
             PRICE DETAILS ({cart.length} Items)
@@ -186,8 +259,10 @@ export default function Checkout() {
               </span>
             </div>
           </div>
-          <div className="deliveryblock-priceHeader">Deliver To</div>
-          <div>Please Select an address to checkout.</div>
+          <div className="deliveryblock-container">
+            <div className="deliveryblock-deliveryHeader">Deliver To</div>
+            <div>Please Select an address to checkout.</div>
+          </div>
         </div>
       </div>
     </>

@@ -417,7 +417,8 @@ aside {
 /* 
 Login Page
 */
-.login-container, .address-container {
+.login-container,
+.address-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -432,7 +433,7 @@ Login Page
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
   box-shadow: 10px 11px 5px 0px #ccc;
   padding: 30px;
   border: 2px solid var(--color-primary);
@@ -446,18 +447,21 @@ Login Page
 .form a span {
   text-decoration: underline;
 }
-.login-form label, .address-popup label {
+.login-form label,
+.address-popup label {
   text-align: left;
 }
 .login-form button,
 input {
   margin-bottom: 1rem;
 }
-.login-form input, .address-popup input {
+.login-form input,
+.address-popup input {
   border: 1px solid var(--color-primary);
   padding: 5px;
 }
-.login-form input:focus, .address-popup input:focus {
+.login-form input:focus,
+.address-popup input:focus {
   border: 3px solid var(--color-primary);
   outline: none;
 }
@@ -720,7 +724,7 @@ input {
   cursor: not-allowed;
 }
 .priceblock-container,
-.orderblock-container {
+.orderblock-container, .deliveryblock-container {
   border: 1px solid black;
   box-shadow: 4px 6px 5px gray;
   width: 400px;
@@ -728,6 +732,14 @@ input {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+}
+.orderblock-container{
+    border: none;
+  box-shadow: none;
+}
+.deliveryblock-container{
+    border: none;
+  box-shadow: none;
 }
 .pricedetail-row,
 .pricedetail-total,
@@ -750,15 +762,20 @@ input {
   color: var(--standard-black);
 }
 .priceblock-priceHeader,
-.orderblock-orderHeader {
+.orderblock-orderHeader, .deliveryblock-deliveryHeader {
   margin-top: var(--space3);
+}
+.deliveryblock-deliveryHeader{
+  margin-bottom: var(--space2);
 }
 .pricedetail-total {
   border-top: 1px solid var(--standard-grey);
   margin-top: var(--space3);
+  margin-bottom: var(--space3);
   padding: var(--space2) 0px;
   color: var(--standard-black);
   font-weight: bold;
+  border-bottom: 1px solid var(--standard-grey);
 }
 .checkout-btn {
   width: 90%;
@@ -776,11 +793,30 @@ input {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
+  /* cursor: pointer; */
+}
+.address-popup {
+  transform: translate(-50%, -50%);
+  background-color: var(--standard-white);
+  width: 90%;
+  box-shadow: none;
+  margin: auto;
+}
+.address-popup h2 {
+  margin-bottom: 1rem;
+}
+.close-icon {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+.close-icon:hover {
   cursor: pointer;
 }
-.address-popup{
-  background-color: var(--standard-white);
+.address-container button {
+  margin-bottom: 1rem;
 }
+
 @media (min-width: 1020px) {
   .filterButtons {
     display: none;
