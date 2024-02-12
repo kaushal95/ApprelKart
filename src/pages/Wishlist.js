@@ -46,73 +46,74 @@ export default function Wishlist() {
     <div>
       <h3> {wishlist.length} items in your wishlist ❣️ </h3>
       <div className="product-list-layout">
-        {wishlist.length &&
-          wishlist.map((product) => {
-            const { _id, name, price, image, currency, qty } = product;
-            return (
-              <div
-                key={_id}
-                style={{
-                  border: "1px solid black",
-                  margin: "0.5rem",
-                  padding: "0.5rem",
-                }}
-                className="product-list-outline"
-              >
+        {wishlist.length
+          ? wishlist.map((product) => {
+              const { _id, name, price, image, currency, qty } = product;
+              return (
                 <div
-                  className="product-list img-container"
-                  onClick={() => handleClick(_id)}
+                  key={_id}
+                  style={{
+                    border: "1px solid black",
+                    margin: "0.5rem",
+                    padding: "0.5rem",
+                  }}
+                  className="product-list-outline"
                 >
-                  <img src={image} alt={`${_id}`} />
-                </div>
-                <div className="cart product-detail">
-                  <p>{name}</p>
-                  <div className="product-list-prices">
-                    <p>Price</p>
-                    <div className="price-container">
-                      <span className="currency">{currency}</span>
-                      <span className="price">{price}</span>
-                    </div>
-                  </div>
-                  {itemInCart(_id) ? (
-                    <button
-                      className="btn cart-btn"
-                      onClick={() =>
-                        handleProductAction(
-                          600,
-                          updateQuantityInCart,
-                          { _id, name },
-                          { type: "increment" }
-                        )
-                      }
-                    >
-                      {" "}
-                      Add to Cart{" "}
-                    </button>
-                  ) : (
-                    <button
-                      className="btn cart-btn"
-                      onClick={() =>
-                        handleProductAction(600, addToCart, product)
-                      }
-                    >
-                      {" "}
-                      Add to Cart{" "}
-                    </button>
-                  )}
-                  <button
-                    className="btn wishlist-btn"
-                    onClick={() =>
-                      handleProductAction(600, removeFromWishlist, product)
-                    }
+                  <div
+                    className="product-list img-container"
+                    onClick={() => handleClick(_id)}
                   >
-                    {" "}
-                    Remove From Wishlist{" "}
-                  </button>
+                    <img src={image} alt={`${_id}`} />
+                  </div>
+                  <div className="cart product-detail">
+                    <p>{name}</p>
+                    <div className="product-list-prices">
+                      <p>Price</p>
+                      <div className="price-container">
+                        <span className="currency">{currency}</span>
+                        <span className="price">{price}</span>
+                      </div>
+                    </div>
+                    {itemInCart(_id) ? (
+                      <button
+                        className="btn cart-btn"
+                        onClick={() =>
+                          handleProductAction(
+                            600,
+                            updateQuantityInCart,
+                            { _id, name },
+                            { type: "increment" }
+                          )
+                        }
+                      >
+                        {" "}
+                        Add to Cart{" "}
+                      </button>
+                    ) : (
+                      <button
+                        className="btn cart-btn"
+                        onClick={() =>
+                          handleProductAction(600, addToCart, product)
+                        }
+                      >
+                        {" "}
+                        Add to Cart{" "}
+                      </button>
+                    )}
+                    <button
+                      className="btn wishlist-btn"
+                      onClick={() =>
+                        handleProductAction(600, removeFromWishlist, product)
+                      }
+                    >
+                      {" "}
+                      Remove From Wishlist{" "}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          : null}
       </div>
     </div>
   );

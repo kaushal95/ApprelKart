@@ -44,7 +44,7 @@ export default function ProductList() {
             <div className="filter-left-container">
               <SidebarFilter />
             </div>
-            <div className="product-list-layout">
+            <div className="product-list-layout filter-border">
               {filterByCategory.length
                 ? filterByCategory.map((product) => {
                     const { _id, name, price, image, currency } = product;

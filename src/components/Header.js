@@ -18,26 +18,35 @@ export function Header() {
               Apparel<span className="color-contrast">Kart</span>
             </span>
           </NavLink>
-          {/* <NavLink to="/product-list">Explore</NavLink> */}
         </div>
         {location.pathname === "/product-list/" ? <Searchbar /> : null}
         <div className="nav-right">
-          <NavLink to="/profile">
+          {token ? (
+            <NavLink to="/profile">
+              <div className="nav-icon">
+                <span className="material-icons-outlined">account_circle</span>
+              </div>
+            </NavLink>
+          ) : (
+            <NavLink to="/login">
+              <div className="nav-icon">
+                <span className="material-icons-outlined">account_circle</span>
+              </div>
+            </NavLink>
+          )}
+          <NavLink to="/wishlist">
             <div className="nav-icon">
-              <span className="material-icons-outlined">account_circle</span>
+              <span className="material-icons-outlined">favorite_border</span>
             </div>
           </NavLink>
-          <div className="badge-icon nav-badge-icon">
-            <span className="material-icons-outlined">favorite_border</span>
-          </div>
           <NavLink to="/cart">
-            <div className="badge-icon nav-badge-icon">
+            <div className="nav-icon">
               <span className="material-icons-outlined">shopping_cart</span>
             </div>
           </NavLink>
           {token ? (
             <NavLink to="/login">
-              <div className="badge-icon nav-badge-icon">
+              <div className="nav-icon">
                 <span
                   className="material-icons-outlined"
                   onClick={logoutHandler}

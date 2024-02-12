@@ -10,7 +10,10 @@ export function AuthProvider({ children }) {
   const locatUserData =
     JSON.parse(localStorage.getItem("user")) || initialUserState;
   const [token, setToken] = useState(locatUserData?.token);
-  const [user, userDispatch] = useReducer(authReducer, locatUserData);
+  const [user, userDispatch] = useReducer(
+    authReducer,
+    locatUserData?.userDetail
+  );
   const location = useLocation();
   const navigate = useNavigate();
 

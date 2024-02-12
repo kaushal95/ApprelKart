@@ -30,7 +30,7 @@ export default function Home() {
           <span className="hero-container-subtitle">
             Discover Autumn Winter 2023
           </span>
-          <button className="btn hero-button">shop now</button>
+          <button className="btn hero-btn">shop now</button>
         </div>
       </div>
       <div className="home-message">
@@ -46,7 +46,7 @@ export default function Home() {
       <div className="home-collection-container">
         <div className="collections-container container-large">
           <div className="collections-title-container">
-            <h2 className="collections-title-">New Collection</h2>
+            <h2 className="collections-title">New Collection</h2>
           </div>
           <div className="product-collection-container">
             {productState?.allCategories.length &&

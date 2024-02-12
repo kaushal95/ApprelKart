@@ -13,6 +13,7 @@ import Product from "./pages/Product";
 import Profile from "./pages/Profile";
 
 import { Header } from "./components/Header";
+import Footer from "./components/Footer";
 
 import "./styles.css";
 
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

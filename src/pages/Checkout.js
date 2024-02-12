@@ -6,7 +6,7 @@ import { useWishlist } from "../context/WishListContext";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 export default function Checkout() {
-  const { token } = useAuth();
+  const { token, userDispatch, user } = useAuth();
   const {
     getAllProducts,
     productState,
@@ -27,6 +27,7 @@ export default function Checkout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [selectAddress, setSelectAddress] = useState(0);
   const [address, setAddress] = useState({
     name: "",
     houseNo: "",
@@ -47,12 +48,6 @@ export default function Checkout() {
     const path = location.pathname + productId;
     await getProductById(productId);
     navigate(path);
-  };
-  const gotoCartPage = () => {
-    navigate("/cart");
-  };
-  const gotoWishlistPage = () => {
-    navigate("/wishlist");
   };
 
   const handleAddressInput = (e) => {
@@ -77,6 +72,9 @@ export default function Checkout() {
         message: `Please enter complete address`,
       });
     }
+    userDispatch({ type: "ADDRESS", payload: [...user.address, address] });
+    setOpen(false);
+    toast.success(`Address added successfully !!`);
   };
   const handleDummyAddress = (e) => {
     e.preventDefault();
@@ -98,6 +96,32 @@ export default function Checkout() {
       <button className="btn add-address-btn" onClick={() => setOpen(true)}>
         Add Address +
       </button>
+      {user?.address.length ? (
+        <div className="address-card-container">
+          <h3 className="select-address-header">Select Address</h3>
+          {user?.address.map((addr, index) => (
+            <div className="address-card">
+              <input
+                type="radio"
+                name="address-info"
+                value={index}
+                checked={index === selectAddress}
+                onChange={() => setSelectAddress(index)}
+              ></input>
+              <div className="address-info">
+                <h3>{`${addr.name}`}</h3>
+                <p>{`${addr.houseNo}, ${addr.area}, ${addr.landmark || ""}`}</p>
+                <p>
+                  <strong>
+                    {`${addr.city}, ${addr.state} - ${addr.pincode}, 
+                      ${addr.country}`}
+                  </strong>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
       {open ? (
         <div className="address-container">
           <form className="form address-popup">
@@ -261,7 +285,24 @@ export default function Checkout() {
           </div>
           <div className="deliveryblock-container">
             <div className="deliveryblock-deliveryHeader">Deliver To</div>
-            <div>Please Select an address to checkout.</div>
+            {user?.address.length ? (
+              <div className="address-card">
+                <div className="address-info">
+                  <h3>{`${user.address[selectAddress].name}`}</h3>
+                  <p>{`${user.address[selectAddress].houseNo}, ${
+                    user.address[selectAddress].area
+                  }, ${user.address[selectAddress].landmark || ""}`}</p>
+                  <p>
+                    <strong>
+                      {`${user.address[selectAddress].city}, ${user.address[selectAddress].state} - ${user.address[selectAddress].pincode}, 
+                      ${user.address[selectAddress].country}`}
+                    </strong>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div>Please Select an address to checkout.</div>
+            )}
           </div>
         </div>
       </div>
